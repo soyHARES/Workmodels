@@ -1,9 +1,0 @@
-bdm_system
-&_1_&tbl_productos&_1_&false
-&_1_&tbl_usuarios&_1_&false
-&_1_&tbl_ventas&_1_&false
-&_2_&tbl_productos&_2_&id_producto&_2_&fecha_admision&_2_&caducacion
-&_2_&tbl_usuarios&_2_&id_usuario&_2_&nombre&_2_&edad&_2_&sexo
-&_2_&tbl_ventas&_2_&id_Venta&_2_&numeroventa
-&_3_&tbl_productos&_3_&1:N&_3_&tbl_ventas
-&_3_&tbl_ventas&_3_&1:N&_3_&tbl_usuarios
