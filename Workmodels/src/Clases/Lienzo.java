@@ -28,6 +28,8 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
     public static boolean modified = false;
     private int xDiagrama = 0;
     private int yDiagrama = 0;
+    public static boolean activar = false;
+
 
     public Lienzo() {
     }
@@ -100,44 +102,42 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
 
     /**
      *
-     * @param evt este evento capta la tecla derecha que se va ejecutar
      */
-    public static boolean activar = false;
-
+   
     @Override
 
     public void mouseDragged(MouseEvent evt) {
 
-            grafo.setModificado(true);
-            int x = evt.getX() - offsetX;
-            int y = evt.getY() - offsetY;
-            if (x < 0) {
-                x = 0;
-            }
-            if (y < 0) {
-                y = 0;
-            }
-            try {
+        grafo.setModificado(true);
+        int x = evt.getX() - offsetX;
+        int y = evt.getY() - offsetY;
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        try {
 
-                nodA.setPuntoInicial(new Point(x, y));
+            nodA.setPuntoInicial(new Point(x, y));
 
-                //agrandar el lienzo.
-                if (nodA.getPuntoInicial().x + nodA.getTamanio() > getWidth()) {
-                    setPreferredSize(new Dimension(
-                            x + nodA.getTamanio(), getHeight()));
-                    revalidate();
-                }
-                if (nodA.getPuntoInicial().y + nodA.getTamanio() > getHeight()) {
-                    setPreferredSize(new Dimension(
-                            getWidth(), y + nodA.getTamanio()));
-                    revalidate();
-                }
-
-                repintarLienzo();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Imposible! No existe un modelo");
+            //agrandar el lienzo.
+            if (nodA.getPuntoInicial().x + nodA.getTamanio() > getWidth()) {
+                setPreferredSize(new Dimension(
+                        x + nodA.getTamanio(), getHeight()));
+                revalidate();
             }
-        
+            if (nodA.getPuntoInicial().y + nodA.getTamanio() > getHeight()) {
+                setPreferredSize(new Dimension(
+                        getWidth(), y + nodA.getTamanio()));
+                revalidate();
+            }
+
+            repintarLienzo();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Imposible! No existe un modelo");
+        }
+
     }//fin mouseDragged()
 
     /**
@@ -147,12 +147,6 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
     @Override
     public void mouseReleased(MouseEvent evt) {
 
-//        nodP = nodA;
-//        flecha = null;
-//        nod1 = null;
-//        nod2 = null;
-//        destino_encontrado = false;
-//        repintarLienzo();
     }
 
     /**
@@ -167,9 +161,6 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
      */
     public void destruir() {
         nodA = null;
-//        nodP = null;
-//        nod1 = null;
-//        nod2 = null;
         listaNodos = null;
         grafo = null;
     }//fin destruir()
@@ -199,7 +190,7 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
                 new Runnable() {
                     @Override
                     public void run() {
-                       getParent().validate();
+                        getParent().validate();
                     }
                 }
         );
@@ -375,7 +366,7 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
         generaEntidadRelacion(relaciones, entidad);
 
         repintarLienzo();
-        JOptionPane.showMessageDialog(null, "DIAGRAMA ENTIDAD RELACION");
+        JOptionPane.showMessageDialog(null, "Generado con éxito");
 
     }
     boolean encontrar = true;
@@ -400,7 +391,7 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
                     } else {
 
                         flecha.setPf(new Point(tab.getPunto_inicial().x, tab.getPunto_inicial().y));
-                              //Etiqueta();
+                        //Etiqueta();
 
                         if (flecha != null) {
 
@@ -472,7 +463,6 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
                 guardar.add(i, tabla);
                 modelo.addColumn(guardar.get(i));
                 modelo.setRowCount(modelo.getRowCount() + 1);
-                //JOptionPane.showMessageDialog(null,Atributos);
                 crearatributos(modelo, tabla);
                 this.setLayout(null);
                 this.add(grafo.agregartabla(tabla, generarlocalizcion(), table, this));
@@ -520,7 +510,7 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
         while (it.hasPrevious()) {
             tab = (Jscroll) it.previous();
             if (tab.getId().equals(Nombretabla)) {
- Point  p = SwingUtilities.convertPoint( tab,  puntos, this );
+                Point p = SwingUtilities.convertPoint(tab, puntos, this);
                 ListIterator f = fle.listIterator(fle.
                         size());
                 while (f.hasPrevious()) {
@@ -541,13 +531,11 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
                     }
 
                 }
-                 tab.setPunto_inicial(p);
-              repintarLienzo();
-           
-            tab.setLocation(p.x,p.y);
+                tab.setPunto_inicial(p);
+                repintarLienzo();
+
+                tab.setLocation(p.x, p.y);
                 repintar();
-              
-                
 
             }
 
@@ -556,7 +544,6 @@ public final class Lienzo extends JPanel implements MouseListener, MouseMotionLi
     }
 
     //Mutators
-
     public void setGrafo(Grafico graf) {
         this.grafo = graf;
     }

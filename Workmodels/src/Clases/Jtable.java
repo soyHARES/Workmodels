@@ -5,10 +5,6 @@
  */
 package Clases;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -16,13 +12,13 @@ import javax.swing.JTable;
  * @author yoel1202
  */
 public class Jtable extends JTable {
-    private String NombreTabla;
-     private Lienzo lienzo;
-    public Jtable() {
-        
-            }
 
-  
+    private String NombreTabla;
+    private Lienzo lienzo;
+
+    public Jtable() {
+
+    }
 
     public String getNombreTabla() {
         return NombreTabla;
@@ -32,6 +28,4 @@ public class Jtable extends JTable {
         this.NombreTabla = NombreTabla;
     }
 
-   
-    
 }

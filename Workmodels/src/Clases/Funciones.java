@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -78,20 +77,7 @@ public class Funciones {
             }
         }
     }
-//    public static void insertarRelacionesTabla(){
-////        DefaultTableModel modelo = (DefaultTableModel) jt_relacionesEntidades.getModel();
-////        String[] e = new String[3];
-////        e[0] = jcb_entidades1.getSelectedItem().toString();
-////        e[2] = jcb_entidades2.getSelectedItem().toString();
-////        e[1] = jcb_relacioesEntidades.getSelectedItem().toString();
-////        if (verificar(e)) {
-////            modelo.addRow(e);
-////            Relaciones relaciones = new Relaciones(e[0], e[2], e[1]);
-////            relation.add(relaciones);
-////        } else {
-////            JOptionPane.showMessageDialog(jP_modelado, "Esa relacion ya se encuentra ingresada");
-////        }
-//    }
+
 
     public static void ingresarRelacion(JTable jt_relacionesEntidades, String jcb_entidades1, String jcb_relacioesEntidades, String jcb_entidades2) {
         DefaultTableModel modelo = (DefaultTableModel) jt_relacionesEntidades.getModel();

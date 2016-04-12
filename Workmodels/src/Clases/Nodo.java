@@ -163,14 +163,14 @@ public class Nodo {
                 g2d.drawImage(img, pix, piy, null, null);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("TimesRoman", Font.PLAIN, getTamanio() * 12 / 75));
-                g.drawString(getEtiqueta(), pix + (15), (piy+ 30));
+                g.drawString(getEtiqueta().substring(0, 8), pix + (15), (piy+ 30));
 
                 break;
             case 'e':
                 img = Toolkit.getDefaultToolkit().getImage("src/imagenes/rectangulo.png");
                 g2d.drawImage(img, pix, piy, null, null);
                 g.setColor(Color.BLACK);
-                g.setFont(new Font("TimesRoman", Font.BOLD, getTamanio() * 12 / 75));
+                g.setFont(new Font("TimesRoman", Font.BOLD, getTamanio() * 14 / 75));
                 g.drawString(getEtiqueta(), pix + (20), (piy+ 30));
 
                 break;
@@ -179,8 +179,8 @@ public class Nodo {
                 img = Toolkit.getDefaultToolkit().getImage("src/imagenes/rombo.png");
                 g2d.drawImage(img, pix-20, piy-20, null, null);
                 g.setColor(Color.BLACK);
-                g.setFont(new Font("TimesRoman", Font.BOLD, getTamanio() * 12 / 75));
-                g.drawString(getEtiqueta(), pix + (20), (piy+ 40));
+                g.setFont(new Font("TimesRoman", Font.BOLD, getTamanio() * 13 / 75));
+                g.drawString(getEtiqueta(), pix + (0), (piy+ 40));
                 break;
         }
 

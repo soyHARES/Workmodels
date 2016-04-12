@@ -383,6 +383,17 @@ public class Frm_Principal extends javax.swing.JFrame {
         return (escribir.escribaRelacional(entidades, atributos, relation, file, ida));
     }
 
+    public void cerrar() {
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "En realidad desea cerrar la aplicacion", "Mensaje",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else {
+        }
+    }
+
 //----------------------- end funciones-------------------------------------
     /**
      * This method is called from within the constructor to initialize the form.
@@ -464,6 +475,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jmi_lienzo = new javax.swing.JMenuItem();
         jmi_datos = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         jDialog1.setTitle("Ayuda ");
@@ -665,8 +677,14 @@ public class Frm_Principal extends javax.swing.JFrame {
         txt_datoEntrada.setToolTipText("Ingrese un dato (Entidad , Atributo)");
         txt_datoEntrada.setCaretColor(new java.awt.Color(204, 102, 0));
         txt_datoEntrada.setDisabledTextColor(new java.awt.Color(204, 102, 0));
+        txt_datoEntrada.setMaximumSize(new java.awt.Dimension(10, 10));
         txt_datoEntrada.setName(""); // NOI18N
         txt_datoEntrada.setSelectionColor(new java.awt.Color(153, 51, 0));
+        txt_datoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_datoEntradaKeyTyped(evt);
+            }
+        });
 
         jcb_entidadesIngresadas.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
         jcb_entidadesIngresadas.setForeground(new java.awt.Color(102, 51, 0));
@@ -747,7 +765,7 @@ public class Frm_Principal extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(jp_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_datoEntrada)
+                    .addComponent(txt_datoEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcb_entidadesIngresadas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcb_tipoModelo, 0, 344, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -1054,8 +1072,17 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenu4.setText("Ayuda");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        jMenuItem3.setText("Help");
+        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItem9.setText("Contenido");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem9);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem3.setText("Creditos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -1072,15 +1099,8 @@ public class Frm_Principal extends javax.swing.JFrame {
 
 
 private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    JOptionPane.showMessageDialog(this, "Gracias por usar nuestro esperamos que ha hecho de gran ayuda");
-    System.exit(0);
+    cerrar();
 }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-// TODO add your handling code here:
-    jDialog1.pack();
-    jDialog1.setVisible(true);
-}//GEN-LAST:event_jMenuItem3ActionPerformed
     /**
      * Euler necesita de un nodo inicio aqui recorremos la lista para verificar
      * si se cumple el ciclo de euler y tomar las decisiones si no existe arroja
@@ -1100,62 +1120,64 @@ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     private void jbtn_hechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_hechoActionPerformed
         Ent_atrib_key.clear();
-        if (jcb_tipoModelo.getSelectedIndex() == 1) {
-            if (jtable_relaciones.getRowCount() == 0 && jtable_relaciones.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(this, "por favor genere una relacion");
-            } else {
+        if (jtable_relaciones.getRowCount() == 0 && jtable_relaciones.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor genere una relacion");
+        } else {
+            if (jcb_tipoModelo.getSelectedIndex() == 1) {
+               
                 Lienzo.activar = true;
                 limpiar();
                 repintarLienzo();
                 listaEntidades();
                 relaciones();
-                // JOptionPane.showMessageDialog(null, zonaPintar.scroll().x+" "+zonaPintar.scroll().y);
                 zonaPintar.Diagramar();
                 zonaPintar.buscarpuntos();
                 zonaPintar.setPreferredSize(new Dimension(zonaPintar.dimensionx, zonaPintar.dimensiony));
 
-                JOptionPane.showMessageDialog(this, "generado con exito");
+                JOptionPane.showMessageDialog(this, "Generado con éxito");
                 Jtp_interfaz.setSelectedIndex(2);
 
                 jpRelacionGraficaRelacional.updateUI();
-            }
-        } else {
-            Lienzo.activar = false;
-            limpiar();
-            ArrayList<Entidad> entidades = new ArrayList<Entidad>();
-            entidades = llenarEntidades();
-            for (int i = 0; i < entidades.size(); i++) {
-                System.out.println("entidades " + entidades.get(i).getTitle() + "-> " + entidades.get(i).isRelacional());
-            }
-            ArrayList<Atributos> atributos = new ArrayList<Atributos>();
-            atributos = llenarAtributos();
-            for (int i = 0; i < atributos.size(); i++) {
-                System.out.println("Identificador de tabla  " + atributos.get(i).getIdentificadorTabla());
-                System.out.println("---------------Todos los Atributos -----------------");
-                for (int j = 0; j < atributos.get(i).getAtributosNormales().size(); j++) {
-                    System.out.println("-.-  " + atributos.get(i).getAtributosNormales().get(j));
+            
+            } else {
+                Lienzo.activar = false;
+                limpiar();
+                ArrayList<Entidad> entidades = new ArrayList<Entidad>();
+                entidades = llenarEntidades();
+                for (int i = 0; i < entidades.size(); i++) {
+                    System.out.println("entidades " + entidades.get(i).getTitle() + "-> " + entidades.get(i).isRelacional());
                 }
-            }
+                ArrayList<Atributos> atributos = new ArrayList<Atributos>();
+                atributos = llenarAtributos();
+                for (int i = 0; i < atributos.size(); i++) {
+                    System.out.println("Identificador de tabla  " + atributos.get(i).getIdentificadorTabla());
+                    System.out.println("---------------Todos los Atributos -----------------");
+                    for (int j = 0; j < atributos.get(i).getAtributosNormales().size(); j++) {
+                        System.out.println("-.-  " + atributos.get(i).getAtributosNormales().get(j));
+                    }
+                }
 
-            System.out.println("-----------RELACIONALES--------------------");
-            for (int i = 0; i < relacionales.size(); i++) {
-                System.out.println("-.-  " + relacionales.get(i));
-            }
+                System.out.println("-----------RELACIONALES--------------------");
+                for (int i = 0; i < relacionales.size(); i++) {
+                    System.out.println("-.-  " + relacionales.get(i));
+                }
 
-            try {
-                repintarLienzo();
-                zonaPintar.generaER(entidades, atributos, relation);//Recibe 3 arraysList tipo clase objeto
-                Jtp_interfaz.setSelectedIndex(2);
-                zonaPintar.setPreferredSize(new Dimension(zonaPintar.getxDiagrama(), zonaPintar.getyDiagrama()));//redimenciona la vista del diagrama
-                zonaPintar.updateUI();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
+                try {
+                    repintarLienzo();
+                    zonaPintar.generaER(entidades, atributos, relation);//Recibe 3 arraysList tipo clase objeto
+                    Jtp_interfaz.setSelectedIndex(2);
+                    zonaPintar.setPreferredSize(new Dimension(zonaPintar.getxDiagrama(), zonaPintar.getyDiagrama()));//redimenciona la vista del diagrama
+                    zonaPintar.updateUI();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                }
+
             }
 
         }
-
-
     }//GEN-LAST:event_jbtn_hechoActionPerformed
+    
+
     public void limpiar() {
         grafic.getListaNodos().clear();
 
@@ -1346,6 +1368,30 @@ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     }//GEN-LAST:event_jmi_datosActionPerformed
 
+    private void txt_datoEntradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_datoEntradaKeyTyped
+        if (txt_datoEntrada.getText().length() == 12) {
+            evt.consume();
+
+        }
+    }//GEN-LAST:event_txt_datoEntradaKeyTyped
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        frm_ayuda help = new frm_ayuda();
+        help.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        JOptionPane.showMessageDialog(this, "PROYECTO: Workmodels 1.0 \n"
+                + "DESARROLADO POR:\n"
+                + "- Cerdas Yoel. \n"
+                + "- Espinoza Harley.\n"
+                + "- Hidalgo Jerson. \n"
+                + "CONTACTO: \n"
+                + "yoel1202@hotmail.com \n"
+                + "harleyespinoza89@gmail.com \n"
+                + "jersonfjl@live.com \n ");
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1422,6 +1468,7 @@ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jP_Relacional;
     public static javax.swing.JPanel jP_modelado;
     private javax.swing.JPanel jPanel4;
