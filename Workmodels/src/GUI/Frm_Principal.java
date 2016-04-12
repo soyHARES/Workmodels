@@ -29,7 +29,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Clases.EscrituraDatos;
 import Clases.LecturaDatos;
-import javax.swing.JPanel;
 
 /**
  *
@@ -53,9 +52,12 @@ public class Frm_Principal extends javax.swing.JFrame {
      * array list que va a almacenar entidades y atributos con forme lo van
      * agregando
      */
-    ArrayList<Entidad> Ent_atrib_key = new ArrayList();
+   
     public static ArrayList<String> relacionales = new ArrayList<String>();
     public static ArrayList<Relaciones> relation = new ArrayList<Relaciones>();
+    public static ArrayList<TablasDatos> datosFull = new ArrayList<TablasDatos>();
+    public static ArrayList<String> relaciones = new ArrayList<String>();
+    ArrayList<Entidad> Ent_atrib_key = new ArrayList();
     Funciones funcion = new Funciones();
 
     /**
@@ -87,16 +89,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     }
 
     //----------------------------- funciones-------------------------------
-    /**
-     *
-     * ENTIDADE Y ATRIBUTOS
-     */
-    /**
-     * camino minimo llamamos este metodo los cual nos va pedir que escirbasmos
-     * un nodo origen y un nodo final recorremos la lista para saber si esistes
-     * estos nodos luego mandamos los nodoa la clase grafo la cual nos devuelve
-     * un entero si existe el camino
-     */
+  
     /**
      * esta funcion la hacemos con el fin de que cuando agregamos un nodo al
      * panel esta refreque el panel
@@ -108,8 +101,7 @@ public class Frm_Principal extends javax.swing.JFrame {
             }
         });
     }
-    public static ArrayList<TablasDatos> datosFull = new ArrayList<TablasDatos>();
-    public static ArrayList<String> relaciones = new ArrayList<String>();
+  
 
     public void relaciones() {
         DefaultTableModel modelo = (DefaultTableModel) jtable_relaciones.getModel();
@@ -144,70 +136,7 @@ public class Frm_Principal extends javax.swing.JFrame {
 
     }
 
-    public Nodo ObtenerNodo(int nd) {
 
-        Iterator it = listaNodos.iterator();
-        while (it.hasNext()) {
-            Nodo n = (Nodo) it.next();
-            if (n.getId() == nd) {
-                return n;
-            }
-
-        }
-
-        return null;
-    }
-
-    /**
-     *
-     * @param g recibe un grafo
-     * @param lz recibe un lienzo
-     * @return este recibe el grafo y lienzo para ser eliminados cuando queremos
-     * eliminar un nodo
-     */
-    public boolean Eliminar(Grafico g, Lienzo lz) {
-
-        Nodo e = lz.getSeleccionado();
-        if (e == null) {
-            return false;
-        }
-
-        String id = "seleccionado " + e.getId();
-
-        int conf = JOptionPane.showConfirmDialog(this, "Esta seguro de eliminar"
-                + " el nodo con id " + id, "Eliminar nodo",
-                JOptionPane.YES_NO_OPTION);
-        if (JOptionPane.OK_OPTION == conf) {
-
-            lz.setSeleccionado(null);
-            return true;
-
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @return esta funcion recibimos el nodo inicial de anchura y llama a la
-     * funcion existe la cual devuelve true si existe
-     */
-    /**
-     *
-     * @param dato un entero el cual verifica si el dato existe en la lista
-     * @return devuelve falso si existe en la lista el nodo que ingresamos
-     */
-    public boolean existe(int dato) {
-        Iterator i = listaNodos.iterator();
-
-        while (i.hasNext()) {
-            Nodo s = (Nodo) i.next();
-            if (dato == s.getId()) {
-                return false;
-            }
-
-        }
-        return true;
-    }
 
     private static boolean isKey() {
         if (jtable_Principal.getValueAt(jtable_Principal.getSelectedRow(), jtable_Principal.getSelectedColumn()) != null) {
@@ -1329,7 +1258,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
             } else {
                 if (enviarDatosFichero(xd.toString(), 1)) {
-                    JOptionPane.showMessageDialog(jp_relaciones, "Se Guardó correctamente");
+                    JOptionPane.showMessageDialog(jp_relaciones, "Guardado con éxito");
                 }
             }
         }
